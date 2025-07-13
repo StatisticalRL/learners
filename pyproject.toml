@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "statisticalRL-learners"
+version = "1.2025.07a"
+description = "Learners for the Statistical Reinforcement Learning project"
+authors = [{ name = "Odalric-Ambym Maillard", email = "odalric.maillard@inria.fr" }]
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.8"
+dependencies = [
+    "six==1.16.0",
+    "gymnasium==1.1.1",
+    "numpy==1.24.3",
+    "networkx==2.8.8",
+    "matplotlib==3.7.2",
+    "scipy==1.15.2",
+    "pydot==1.4.2"
+]
+#Also default packages: sys,random,math,string,time,os
+
+[project.urls]
+Homepage = "https://github.com/StatisticalRL/learners"
