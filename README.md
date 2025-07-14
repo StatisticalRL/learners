@@ -56,4 +56,4 @@ Learning Agents for Statistical Reinforcement Learning
 
 # Usage
 
-You can run an instance of an learner on an environment from StatisticalRL library.
+You can run an instance of a learner on an environment from StatisticalRL library.
