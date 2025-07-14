@@ -23,3 +23,8 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://github.com/StatisticalRL/learners"
+
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+packages = ["statisticalrl_learners"]
