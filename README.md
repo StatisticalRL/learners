@@ -4,13 +4,15 @@ Learning Agents for Statistical Reinforcement Learning
 
 ## Installation
 
-    python -m venv venv
-    source venv/bin/activate
-    pip install -r requirements.txt
+    pip install statisticalRL-learners
 
 
 ## Test
-    python run.py
+You need to install statisticalRL-environments and statisticalRL-experiments before testing.
+
+    pip install statisticalRL-environments
+    pip install statisticalRL-experiments
+
 
 # List of learners:
     
