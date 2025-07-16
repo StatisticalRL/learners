@@ -1,6 +1,5 @@
 
-import numpy as np
-
+from statisticalrl_learners.MDPs_discrete.utils import *
 
 class Qlearning:
     def __init__(self, nS, nA):

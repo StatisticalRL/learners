@@ -1,4 +1,6 @@
-from src import Agent
+
+from statisticalrl_learners.MABs import Agent
+from statisticalrl_learners.MABs.utils import *
 
 class UCB(Agent):
     """Upper Confidence Bound"""

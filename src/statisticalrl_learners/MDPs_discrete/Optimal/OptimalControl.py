@@ -1,3 +1,4 @@
+from statisticalrl_learners.MDPs_discrete.utils import *
 def build_opti(name, env, nS, nA):
     #if ("2-room" in name):
     #    return  Opti_911_2room(env)

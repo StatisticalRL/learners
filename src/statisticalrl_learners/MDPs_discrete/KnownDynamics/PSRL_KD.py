@@ -1,5 +1,6 @@
 import scipy.stats as stat
-from src import Agent
+from statisticalrl_learners.MDPs_discrete.AgentInterface import Agent
+from statisticalrl_learners.MDPs_discrete.utils import *
 
 
 class PSRL_KD(Agent):

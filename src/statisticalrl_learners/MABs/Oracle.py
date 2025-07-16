@@ -1,5 +1,6 @@
-from src import Agent
 
+from statisticalrl_learners.MABs import Agent
+from statisticalrl_learners.MABs.utils import *
 class Oracle(Agent):
     """Oracle"""
     def __init__(self,env):

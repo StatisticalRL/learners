@@ -1,5 +1,5 @@
-from src import Agent
-
+from statisticalrl_learners.MDPs_discrete.AgentInterface import Agent
+from statisticalrl_learners.MDPs_discrete.utils import *
 class UCRL3(Agent):
     def __init__(self, nS, nA, delta, K=-1):
         Agent.__init__(self, nS, nA,name="UCRL3")

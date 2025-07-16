@@ -1,6 +1,7 @@
 import numpy as np
 import scipy
-from src import Agent
+from statisticalrl_learners.MDPs_discrete.AgentInterface import Agent
+from statisticalrl_learners.MDPs_discrete.utils import *
 
 # Official version from article "Logarithmic-regret-in-communicating-MDPs-Leveraging-known-dynamics-with-bandits"
 

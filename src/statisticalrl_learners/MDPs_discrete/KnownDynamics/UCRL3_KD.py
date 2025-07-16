@@ -1,4 +1,5 @@
-from src import Agent
+from statisticalrl_learners.MDPs_discrete.AgentInterface import Agent
+from statisticalrl_learners.MDPs_discrete.utils import *
 
 class UCRL3_KD(Agent):
     def __init__(self, nS, nA, env, delta):

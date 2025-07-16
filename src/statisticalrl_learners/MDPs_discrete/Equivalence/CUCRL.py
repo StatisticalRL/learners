@@ -1,6 +1,7 @@
-import numpy as np
 import time
 
+from statisticalrl_learners.MDPs_discrete.AgentInterface import Agent
+from statisticalrl_learners.MDPs_discrete.utils import *
 
 # from src.permutation_coherence import  *
 

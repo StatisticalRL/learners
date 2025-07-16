@@ -1,4 +1,7 @@
-from src import Agent
+import numpy as np
+from statisticalrl_learners.MDPs_discrete.AgentInterface import Agent
+
+from statisticalrl_learners.MDPs_discrete.utils import *
 
 # KL-UCRL is an improvement of UCRL2 introduced by Filippi et al. 2011
 # This class proposes an implementation of this algorithm, it seems usefull to know that the algorithm proposed in the paper cannot be implemented as

@@ -1,4 +1,5 @@
-from src import Agent
+
+from statisticalrl_learners.MABs import Agent
 
 class UE(Agent):
     """Uniform Exploration"""

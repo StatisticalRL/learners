@@ -1,6 +1,6 @@
-from utils import *
 
-from src import Agent
+from statisticalrl_learners.MABs import Agent
+from statisticalrl_learners.MABs.utils import *
 
 class BESA(Agent):
     """ Best Empirical Sampled Average (2 arms) """

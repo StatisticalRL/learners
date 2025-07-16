@@ -1,6 +1,6 @@
 import copy as cp
-
-from src import Agent
+from statisticalrl_learners.MDPs_discrete.AgentInterface import Agent
+from statisticalrl_learners.MDPs_discrete.utils import *
 
 class UCRL2(Agent):
     def __init__(self, nS, nA, delta):

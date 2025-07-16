@@ -1,6 +1,6 @@
 import numpy as np
 from scipy.optimize import minimize_scalar
-from src import Agent
+from statisticalrl_learners.MDPs_discrete.AgentInterface import Agent
 
 
 def randamax(v, t=None, i=None):

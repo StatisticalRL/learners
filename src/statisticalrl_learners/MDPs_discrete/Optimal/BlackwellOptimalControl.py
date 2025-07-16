@@ -1,3 +1,5 @@
+from statisticalrl_learners.MDPs_discrete.utils import *
+
 def build_opti(name, env, nS, nA):
         return Opti_controller(env, nS, nA)
 
