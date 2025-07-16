@@ -1,5 +1,5 @@
 import numpy as np
-import src as utils
+from statisticalrl_learners.MDPs_discrete import utils
 
 
 class Agent:

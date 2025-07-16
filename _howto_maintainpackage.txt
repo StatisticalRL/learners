@@ -2,8 +2,12 @@
 pip freeze > requirements_full.txt
 ## Remove unused packages from the list to generate requirements.txt
 
-git tag -a v1.2025.07a -m "First release"
+
+git tag -a v1.250716.3 -m "testPyPI release"
 ## Don't forget to push tags (not by default in git push):  git push origin --tags or tick "push tags' in PyCharm
+
+##When finalized: (use n version for TestPy and n1+ for Pypi)
+git tag -a v2.2507 -m "Official PyPI release"
 
 # Setup
 python -m venv venv
