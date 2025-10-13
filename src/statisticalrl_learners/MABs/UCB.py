@@ -1,25 +1,25 @@
 
-from statisticalrl_learners.MABs import Agent
+from statisticalrl_learners.MABs import BanditAgent
 from statisticalrl_learners.MABs.utils import *
 
-class UCB(Agent):
+class UCB(BanditAgent):
     """Upper Confidence Bound"""
     def __init__(self,nbArms,delta):
         self.nbArms = nbArms
         self.delta = delta
-        Agent.__init__(self,self.nbArms,name="UCB")
+        BanditAgent.__init__(self, self.nbArms, name="UCB")
 
-    def reset(self,initstate=0):
+    def reset(self):
         self.time = 0
         self.nbDraws = np.zeros(self.nbArms)
         self.cumRewards = np.zeros(self.nbArms)
         self.means = np.zeros(self.nbArms)
         self.indexes = np.zeros(self.nbArms)
 
-    def play(self,state=0):
+    def play(self):
         return randmax(self.indexes)
 
-    def update(self, state, arm, reward, observation):
+    def update(self, arm, reward):
         self.time = self.time + 1
         self.cumRewards[arm] = self.cumRewards[arm]+reward
         self.nbDraws[arm] = self.nbDraws[arm] + 1
