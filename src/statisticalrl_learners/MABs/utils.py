@@ -110,3 +110,51 @@ def complexity(bandit):
     else:
         return sum([(meanMax - bandit.means[a]) / klBern(bandit.means[a], meanMax) for a in range(bandit.nbArms) if
                     a != bandit.bestarm])
+
+
+
+from scipy.optimize import minimize_scalar, root_scalar
+def KLinf_threshold(reward_history, mean_threshold,upper_bound=1.0, custom_optim=True):
+    # Kinf is caculated via its concave dual problem
+    #         max_{0<=lambda<=1/(B-mu^*)} E[log(1-(X-mu^*)*lambda)],
+    #         where E is taken w.r.t the empirical measure hat{F}_k(t).
+    X = np.array(reward_history)
+    # Faster optimization: many times, the maximum of the concave
+    # dual objective is attained on the boundary 0 or 1/(B-mu).
+    # ~x2 speedup on some bandit instances.
+    # If problem, fall back to standard minimize_scalar.
+    fallback = False
+    if custom_optim:
+        def f(l):
+            return np.mean(np.log(1 - (X - mean_threshold) * l))
+
+        def jac(l):
+            return -np.mean((X - mean_threshold) / (1 - (X - mean_threshold) * l))
+
+        l_plus = 1e12 if mean_threshold == upper_bound else 1 / (upper_bound - mean_threshold)
+
+        if jac(0) * jac(l_plus) >= 0:
+            kinf = np.maximum(f(0), f(l_plus))
+        else:
+            ret = root_scalar(
+                jac, method='brentq', bracket=[0, l_plus]
+            )
+            if ret.converged:
+                kinf = np.max([f(ret.root), f(0), f(l_plus)])
+            else:
+                fallback = True
+    if not custom_optim or fallback:
+        # minimize -E[log(1-(X-mu^*)*lambda)]
+        def f(l):
+            return -np.mean(np.log(1 - (X - mean_threshold) * l))
+
+        ret = minimize_scalar(
+            f, method='bounded', bounds=(0, 1 / (upper_bound - mean_threshold))
+        )
+        if ret.success:
+            kinf = -ret.fun
+        else:
+            # if error, just make this arm not eligible this turn
+            kinf = np.inf
+    return kinf
+
