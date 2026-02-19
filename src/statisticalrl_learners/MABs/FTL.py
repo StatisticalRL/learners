@@ -1,6 +1,6 @@
 
 from statisticalrl_learners.MABs import BanditAgent
-from statisticalrl_learners.MABs.utils import *
+from statisticalrl_learners.Generic.utils import *
 
 class FTL(BanditAgent):
     """Follow The Leader (a.k.a. greedy strategy)"""
