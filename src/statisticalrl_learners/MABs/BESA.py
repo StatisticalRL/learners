@@ -1,13 +1,13 @@
 
-from statisticalrl_learners.MABs import Agent
+from statisticalrl_learners.MABs import BanditAgent
 from statisticalrl_learners.MABs.utils import *
 
-class BESA(Agent):
+class BESA(BanditAgent):
     """ Best Empirical Sampled Average (2 arms) """
     def __init__(self,env):
         assert env.action_space.n == 2
         self.nbArms = 2
-        Agent.__init__(self,self.nbArms,name="BESA")
+        BanditAgent.__init__(self, self.nbArms, name="BESA")
 
     def reset(self,inistate=0):
         self.nbDraws = np.zeros(self.nbArms)
@@ -16,13 +16,13 @@ class BESA(Agent):
         self.sample = [[] for a in range(self.nbArms)]
         self.means = np.zeros(self.nbArms)
 
-    def play(self,state):
+    def play(self):
         if self.sampleSize==0:
             return randmin(self.nbDraws)
         else:
             return randmax(self.means)
 
-    def update(self, state, arm, reward, observation):
+    def update(self, arm, reward):
         self.rewards[arm] = self.rewards[arm]+[reward]
         self.nbDraws[arm] = self.nbDraws[arm] + 1
         self.sampleSize = int(min(self.nbDraws))

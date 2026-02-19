@@ -238,7 +238,7 @@ class KLUCRL(Agent):
                 self.policy[s, a] = 1. / self.nA
         self.new_episode()
 
-    # To chose an action for a given state (and start a new episode if necessary -> stopping criterion defined here).
+    # To choose an action for a given state (and start a new episode if necessary -> stopping criterion defined here).
     def play(self, state):
         action = categorical_sample([self.policy[state, a] for a in range(self.nA)], np.random)
         if self.vk[state, action] >= max([1, self.Nk[state, action]]):  # Stoppping criterion

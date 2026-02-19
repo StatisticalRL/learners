@@ -1,17 +1,17 @@
 
-from statisticalrl_learners.MABs import Agent
+from statisticalrl_learners.MABs import BanditAgent
 from statisticalrl_learners.MABs.utils import *
 '''
 Bernoulli distributions
 '''
-class IMED(Agent):
+class IMED(BanditAgent):
     """Indexed Minimum Empirical Divergence"""
     def __init__(self,nbArms,kullback):
         self.nbArms = nbArms
         self.kl = kullback
-        Agent.__init__(self,self.nbArms,name="IMED")
+        BanditAgent.__init__(self, self.nbArms, name="IMED")
 
-    def reset(self,initstate=0):
+    def reset(self):
         self.nbDraws = np.zeros(self.nbArms)
         self.cumRewards = np.zeros(self.nbArms)
         self.means = np.zeros(self.nbArms)
@@ -21,7 +21,7 @@ class IMED(Agent):
     def play(self,state=0):
         return randmin(self.indexes)
 
-    def update(self, state, arm, reward, observation):
+    def update(self, arm, reward):
         self.cumRewards[arm] = self.cumRewards[arm]+reward
         self.nbDraws[arm] = self.nbDraws[arm] + 1
         self.means[arm] = self.cumRewards[arm] /self.nbDraws[arm]
