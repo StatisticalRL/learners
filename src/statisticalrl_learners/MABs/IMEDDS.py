@@ -1,6 +1,6 @@
 
 
-from learners import BatchBanditAgent
+from statisticalrl_learners.MABs import BanditAgent, BatchBanditAgent
 from statisticalrl_learners.MABs.utils import *
 '''
 Bernoulli distributions
