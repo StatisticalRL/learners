@@ -1,78 +1,17 @@
 import numpy as np
 from scipy.optimize import minimize_scalar
-from statisticalrl_learners.MDPs_discrete.AgentInterface import Agent
-
-
-def randamax(v, t=None, i=None):
-    """
-    V: array of values
-    T: array used to break ties
-    I: array of indices from which we should return an amax
-    """
-    if i is None:
-        idxs = np.where(v == np.amax(v))[0]
-        if t is None:
-            idx = np.random.choice(idxs)
-        else:
-            assert len(v) == len(t), f"Lengths should match: len(v)={len(v)} - len(t)={len(t)}"
-            t_idxs = np.where(t[idxs] == np.amin(t[idxs]))[0]
-            t_idxs = np.random.choice(t_idxs)
-            idx = idxs[t_idxs]
-    else:
-        idxs = np.where(v[i] == np.amax(v[i]))[0]
-        if t is None:
-            idx = i[np.random.choice(idxs)]
-        else:
-            assert len(v) == len(t), f"Lengths should match: len(v)={len(v)} - len(t)={len(t)}"
-            t = t[i]
-            t_idxs = np.where(t[idxs] == np.amin(t[idxs]))[0]
-            t_idxs = np.random.choice(t_idxs)
-            idx = i[idxs[t_idxs]]
-    return idx
-
-
-def randamin(v, t=None, i=None):
-    """
-    v: array of values
-    t: array used to break ties
-    i: array of indices from which we should return an amin
-    """
-    if i is None:
-        idxs = np.where(v == np.amin(v))[0]
-        if t is None:
-            idx = np.random.choice(idxs)
-        else:
-            assert len(v) == len(t), f"Lengths should match: len(v)={len(v)} - len(t)={len(t)}"
-            t_idxs = np.where(t[idxs] == np.amin(t[idxs]))[0]
-            t_idxs = np.random.choice(t_idxs)
-            idx = idxs[t_idxs]
-    else:
-        idxs = np.where(v[i] == np.amin(v[i]))[0]
-        if t is None:
-            idx = i[np.random.choice(idxs)]
-        else:
-            assert len(v) == len(t), f"Lengths should match: len(v)={len(v)} - len(t)={len(t)}"
-            t = t[i]
-            t_idxs = np.where(t[idxs] == np.amin(t[idxs]))[0]
-            t_idxs = np.random.choice(t_idxs)
-            idx = i[idxs[t_idxs]]
-    return idx
-
-
-def randexp(v):
-    """
-    v: array of values
-    """
-    p = [np.exp(-x) for x in v]
-    p = p / sum(p)
-    return np.random.choice(range(len(v)), size=1, p=p)[0]
+from statisticalrl_learners.MDPs_discrete import MDPAgent
+from utils import randamax, randamin, randexp
 
 
 
-class MEDRL(Agent):
+
+
+
+class MEDRL(MDPAgent):
     def __init__(self, nbr_states, nbr_actions, name="MED-RL",
                  max_iter=3000, epsilon=1e-3, max_reward=1):
-        Agent.__init__(self, nbr_states, nbr_actions, name=name)
+        MDPAgent.__init__(self, nbr_states, nbr_actions, name=name)
         self.nS = nbr_states
         self.nA = nbr_actions
         self.dirac = np.eye(self.nS, dtype=int)

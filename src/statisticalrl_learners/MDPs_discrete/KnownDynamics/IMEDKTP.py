@@ -1,6 +1,6 @@
 import numpy as np
 import scipy
-from statisticalrl_learners.MDPs_discrete.AgentInterface import Agent
+from statisticalrl_learners.MDPs_discrete.AgentInterface import MDPAgent
 from statisticalrl_learners.MDPs_discrete.utils import *
 
 # Official version from article "Logarithmic-regret-in-communicating-MDPs-Leveraging-known-dynamics-with-bandits"
@@ -201,7 +201,7 @@ def random_policies(
     return policy_pool, gain_pool, stationary_pool, precision_pool, true_stat_pool
 
 
-class IMEDKTP(Agent):
+class IMEDKTP(MDPAgent):
     def __init__(
             self,
             env,
@@ -212,7 +212,7 @@ class IMEDKTP(Agent):
             nbr_rn_pi=10,
             ada=False
     ):
-        Agent.__init__(self, env.observation_space.n, env.action_space.n, name=name)
+        MDPAgent.__init__(self, env.observation_space.n, env.action_space.n, name=name)
         self.nS = env.observation_space.n
         self.nA = env.action_space.n
         self.env = env

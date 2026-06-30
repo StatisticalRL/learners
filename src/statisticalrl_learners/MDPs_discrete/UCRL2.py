@@ -1,10 +1,10 @@
 import copy as cp
-from statisticalrl_learners.MDPs_discrete.AgentInterface import Agent
+from statisticalrl_learners.MDPs_discrete import MDPAgent
 from statisticalrl_learners.MDPs_discrete.utils import *
 
-class UCRL2(Agent):
+class UCRL2(MDPAgent):
     def __init__(self, nS, nA, delta):
-        Agent.__init__(self, nS, nA, name="UCRL2")
+        MDPAgent.__init__(self, nS, nA, name="UCRL2")
         """
         Vanilla UCRL2 based on "Jaksch, Thomas, Ronald Ortner, and Peter Auer. "Near-optimal regret bounds for reinforcement learning." Journal of Machine Learning Research 11.Apr (2010): 1563-1600."
         :param nS: the number of states

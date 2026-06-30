@@ -8,16 +8,15 @@ Bernoulli distributions
 class TS(BatchBanditAgent):
     """Thomson Sampling"""
     def __init__(self,nbArms):
-        self.nbArms = nbArms
-        BatchBanditAgent.__init__(self, self.nbArms, name="Batch-TS")
+        BatchBanditAgent.__init__(self, nbArms, name="Batch-TS")
 
     def reset(self):
-        self.nbDraws = np.zeros(self.nbArms)
-        self.cumRewards = np.zeros(self.nbArms)
-        self.theta = np.zeros(self.nbArms)
+        self.nbDraws = np.zeros(self.nA)
+        self.cumRewards = np.zeros(self.nA)
+        self.theta = np.zeros(self.nA)
 
     def play(self):
-        self.theta = [np.random.beta(max(self.cumRewards[a],0) + 1, max(self.nbDraws[a] - self.cumRewards[a],0) + 1) for a in range(self.nbArms)]
+        self.theta = [np.random.beta(max(self.cumRewards[a],0) + 1, max(self.nbDraws[a] - self.cumRewards[a],0) + 1) for a in range(self.nA)]
         return randmax(self.theta)
 
     def update(self, arm, reward):

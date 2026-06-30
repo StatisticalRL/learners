@@ -2,29 +2,14 @@ import numpy as np
 from statisticalrl_learners.MDPs_discrete import utils
 
 
-class Agent:
-    def __init__(self, nS, nA, name="Agent"):
-        self.nS = nS
-        self.nA = nA
-        self.agentname= name
-
-    def name(self):
-        return self.agentname
-
-    def reset(self,inistate):
-        ()
-
-    def play(self,state):
-        return np.random.randint(self.nA)
-
-    def update(self, state, action, reward, observation):
-        ()
 
 
+from statisticalrl_learners.MDPs_discrete import MDPAgent
 
-class SequentialAgent(Agent):
+
+class SequentialAgent(MDPAgent):
     def __init__(self, nbr_states, nbr_actions, name="Sequential Agent"):
-        Agent.__init__(self,nbr_states,nbr_actions,name)
+        MDPAgent.__init__(self, nbr_states, nbr_actions, name)
         self.nS = nbr_states
         self.nA = nbr_actions
         self.dirac = np.eye(self.nS, dtype=int)

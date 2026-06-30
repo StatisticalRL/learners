@@ -1,8 +1,9 @@
-from statisticalrl_learners.MDPs_discrete.AgentInterface import Agent
+
+from statisticalrl_learners.MDPs_discrete import MDPAgent
 from statisticalrl_learners.MDPs_discrete.utils import *
-class UCRL2B(Agent):
+class UCRL2B(MDPAgent):
     def __init__(self, nS, nA, delta, K=-1):
-        Agent.__init__(self, nS, nA, name="UCRL2B")
+        MDPAgent.__init__(self, nS, nA, name="UCRL2B")
         self.nS = nS
         self.nA = nA
         self.t = 1
@@ -187,9 +188,9 @@ class UCRL2B(Agent):
         self.t += 1
 
 
-class UCRL2_Bernstein_detRewards(Agent):
+class UCRL2_Bernstein_detRewards(MDPAgent):
     def __init__(self, nS, nA, delta, K=-1):
-        Agent.__init__(self, nS, nA, name="UCRL2B_det")
+        MDPAgent.__init__(self, nS, nA, name="UCRL2B_det")
         self.nS = nS
         self.nA = nA
         self.t = 1

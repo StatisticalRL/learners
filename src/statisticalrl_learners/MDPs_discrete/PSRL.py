@@ -1,11 +1,11 @@
 import scipy.stats as stat
-from statisticalrl_learners.MDPs_discrete.AgentInterface import Agent
+from statisticalrl_learners.MDPs_discrete import MDPAgent
 from statisticalrl_learners.MDPs_discrete.utils import *
 
 
-class PSRL(Agent):
+class PSRL(MDPAgent):
     def __init__(self, nS, nA, delta):
-        Agent.__init__(self, nS, nA,name="PSRL")
+        MDPAgent.__init__(self, nS, nA, name="PSRL")
         self.nS = nS
         self.nA = nA
         self.t = 1

@@ -8,18 +8,17 @@ Bernoulli distributions
 class IMEDDS(BatchBanditAgent):
     """Indexed Minimum Empirical Divergence"""
     def __init__(self,nbArms,kullback,bound=1.):
-        self.nbArms = nbArms
         self.kl = kullback
-        BatchBanditAgent.__init__(self, self.nbArms, name="B-IMED-DS"+str(int(bound)))
+        BatchBanditAgent.__init__(self, nbArms, name="B-IMED-DS"+str(int(bound)))
         self.bound = bound
 
     def reset(self):
-        self.nbDraws = np.zeros(self.nbArms)
-        self.cumRewards = np.zeros(self.nbArms)
-        self.meanRewards = np.zeros(self.nbArms, dtype=float)
+        self.nbDraws = np.zeros(self.nA)
+        self.cumRewards = np.zeros(self.nA)
+        self.meanRewards = np.zeros(self.nA, dtype=float)
         self.maxMeans = 0
-        self.indexes = np.zeros(self.nbArms)
-        self.rewardHistory = [[self.bound] for _ in range(self.nbArms)]
+        self.indexes = np.zeros(self.nA)
+        self.rewardHistory = [[self.bound] for _ in range(self.nA)]
 
     def play(self,state=0):
         return randmin(self.indexes)
@@ -39,7 +38,7 @@ class IMEDDS(BatchBanditAgent):
 
     def _update_index(self):
         self.indexes = [self.nbDraws[a] * self.kl(self._dirichletmean(self.rewardHistory[a]), self.maxMeans) + log(
-            self.nbDraws[a]) if self.nbDraws[a] > 0 else 0 for a in range(self.nbArms)]
+            self.nbDraws[a]) if self.nbDraws[a] > 0 else 0 for a in range(self.nA)]
 
     def batchplay(self,batchsize):
         batcharms=[]

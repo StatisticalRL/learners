@@ -1,8 +1,9 @@
-from statisticalrl_learners.MDPs_discrete.AgentInterface import Agent
+
+from statisticalrl_learners.MDPs_discrete import MDPAgent
 from statisticalrl_learners.MDPs_discrete.utils import *
-class UCRL3(Agent):
+class UCRL3(MDPAgent):
     def __init__(self, nS, nA, delta, K=-1):
-        Agent.__init__(self, nS, nA,name="UCRL3")
+        MDPAgent.__init__(self, nS, nA, name="UCRL3")
         self.nS = nS
         self.nA = nA
         self.t = 1
@@ -72,7 +73,7 @@ class UCRL3(Agent):
 
     def elln(self, n, delta):
         if (n <= 0):
-            return np.infty
+            return np.inf
         else:
             eta = 1.12
             ell = eta * np.log(np.log(n * eta) * np.log(n * eta * eta) / (np.square(np.log(eta)) * delta))
@@ -80,30 +81,30 @@ class UCRL3(Agent):
 
     def elln_DannEtAl(self, n, delta):
         if (n <= 0):
-            return np.infty
+            return np.inf
         else:
             return (2 * np.log(np.log(max((np.exp(1), n)))) + np.log(3 / delta)) / n
 
     def confbound_HoeffdingLaplace(self, r, n, delta):
         if (n == 0):
-            return np.infty
+            return np.inf
         return np.sqrt((1. + 1. / n) * np.log(np.sqrt(n + 1) / delta) / (2. * n))
 
     def confbound_EmpBersnteinPeeling(self, r, empvar, n, delta):
         if (n == 0):
-            return np.infty
+            return np.inf
         elln = self.elln(n, delta)
         return np.sqrt(2. * empvar * elln) + 7. * elln / 3.
 
     def confbound_BernoulliBernsteinPeeling(self, q, n, delta):  # q- pest <=
         if (n == 0):
-            return np.infty
+            return np.inf
         elln = self.elln(n, delta)
         return np.sqrt(2. * q * (1. - q) * elln) + elln / 3.
 
     def confbound_BernoulliSubGaussianLaplace_bar(self, q, n, delta):  # q- pest <=
         if (n == 0):
-            return np.infty
+            return np.inf
         if (q < 0.5):
             if (q == 0):
                 gb = 0.
@@ -116,7 +117,7 @@ class UCRL3(Agent):
 
     def confbound_BernoullisubGaussianLaplace(self, q, n, delta):  # pest - q <=
         if (n == 0):
-            return np.infty
+            return np.inf
         g = 0.
         if (q > 0) and (q < 1):
             if (q == 0.5):
@@ -207,7 +208,7 @@ class UCRL3(Agent):
 
     # Auxiliary function for the inner maximization of the EVI, dealing with the Near Optimistic Optimization based on the support
     # for transition function used in the inner maximization
-    def computeSupport(self, s, a, u, sorted_indices, kappa=np.infty):
+    def computeSupport(self, s, a, u, sorted_indices, kappa=np.inf):
         support = []
         for next_s in self.supports[s, a]:
             support.append(next_s)
@@ -334,7 +335,7 @@ class UCRL3(Agent):
             for a in range(self.nA):
                 div = self.Nk[s, a]
                 if (div == 0):
-                    self.r_varestimate[s, a] = np.infty
+                    self.r_varestimate[s, a] = np.inf
                 else:
                     self.r_varestimate[s, a] = self.r_m2[s, a] / div
                 self.supports[s, a] = self.p_estimate[s, a].keys()

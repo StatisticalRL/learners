@@ -1,6 +1,6 @@
 import numpy as np
 from scipy.optimize import minimize_scalar
-from statisticalrl_learners.MDPs_discrete.AgentInterface import Agent
+from statisticalrl_learners.MDPs_discrete import MDPAgent
 
 
 def randamax(v, t=None, i=None):
@@ -59,10 +59,10 @@ def randamin(v, t=None, i=None):
     return idx
 
 
-class IMEDRL(Agent):
+class IMEDRL(MDPAgent):
     def __init__(self, nbr_states, nbr_actions, name="IMED-RL",
                  max_iter=3000, epsilon=1e-3, max_reward=1):
-        Agent.__init__(self, nbr_states, nbr_actions, name=name)
+        MDPAgent.__init__(self, nbr_states, nbr_actions, name=name)
         self.nS = nbr_states
         self.nA = nbr_actions
         self.dirac = np.eye(self.nS, dtype=int)

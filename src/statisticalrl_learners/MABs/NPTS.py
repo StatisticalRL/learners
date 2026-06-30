@@ -5,22 +5,21 @@ from statisticalrl_learners.Generic.utils import *
 class NPTS(BanditAgent):
     """Non-parametric Thompson Sampling (aka Bounded Dirichlet Sampling)"""
     def __init__(self,nbArms,bound=1.):
-        self.nbArms = nbArms
-        BanditAgent.__init__(self, self.nbArms, name="BDS")
+        BanditAgent.__init__(self, nbArms, name="BDS")
         self.bound = bound
 
     def reset(self):
-        self.nbDraws = np.zeros(self.nbArms)
-        self.cumRewards = np.zeros(self.nbArms)
-        self.meanRewards = np.zeros(self.nbArms, dtype=float)
-        self.rewardHistory = [[self.bound] for _ in range(self.nbArms)]
-        self.playbuffer= list(range(self.nbArms))
+        self.nbDraws = np.zeros(self.nA)
+        self.cumRewards = np.zeros(self.nA)
+        self.meanRewards = np.zeros(self.nA, dtype=float)
+        self.rewardHistory = [[self.bound] for _ in range(self.nA)]
+        self.playbuffer= list(range(self.nA))
 
     def play(self):
         if (len(self.playbuffer)==0):
             leader = randmax(self.nbDraws)
             muleader = self.meanRewards[leader]
-            for a in range(self.nbArms):
+            for a in range(self.nA):
                 if self.nbDraws[a] < self.nbDraws[leader] and self.nbDraws[a] > 0:
                     tmua = self._dirichletmean(self.rewardHistory[a])
                     if max(self.meanRewards[a],tmua) >= muleader:

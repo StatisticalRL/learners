@@ -6,6 +6,7 @@ def keyboard_waitfor(list):
             return x,i
 
 
+from statisticalrl_learners.MDPs_discrete import MDPAgent
 class Human:
     def __init__(self,env):
         self.env=env.env

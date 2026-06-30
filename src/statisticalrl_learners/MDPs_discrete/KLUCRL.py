@@ -1,5 +1,5 @@
 import numpy as np
-from statisticalrl_learners.MDPs_discrete.AgentInterface import Agent
+from statisticalrl_learners.MDPs_discrete import MDPAgent
 
 from statisticalrl_learners.MDPs_discrete.utils import *
 
@@ -7,9 +7,9 @@ from statisticalrl_learners.MDPs_discrete.utils import *
 # This class proposes an implementation of this algorithm, it seems usefull to know that the algorithm proposed in the paper cannot be implemented as
 # proposed. Some modifications have to be done (and are done here) in order to prevent some problems as: division by 0 or log(0) in function f and
 # newton optimization on constant function.
-class KLUCRL(Agent):
+class KLUCRL(MDPAgent):
     def __init__(self, nS, nA, delta):
-        Agent.__init__(self, nS, nA, name="KL-UCRL")
+        MDPAgent.__init__(self, nS, nA, name="KL-UCRL")
         """
         KL-UCRL is an improvement of UCRL2 introduced in "Filippi, Sarah, Olivier Cappé, and Aurélien Garivier. "Optimism in reinforcement learning and Kullback-Leibler divergence." 2010 48th Annual Allerton Conference on Communication, Control, and Computing (Allerton). IEEE, 2010."
         :param nS: the number of states

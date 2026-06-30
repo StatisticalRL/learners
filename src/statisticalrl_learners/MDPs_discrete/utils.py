@@ -63,6 +63,13 @@ def randamin(V, T=None, I=None):
     return idx
 
 
+def randexp(v):
+    """
+    v: array of values
+    """
+    p = [np.exp(-x) for x in v]
+    p = p / sum(p)
+    return np.random.choice(range(len(v)), size=1, p=p)[0]
 
 def allmax(a):
     if len(a) == 0:

@@ -5,19 +5,18 @@ from statisticalrl_learners.Generic.utils import *
 class BEB(BatchBanditAgent):
     """Bounded-CVaR-Thompson-Sampling Batch for CVaR=Expectation"""
     def __init__(self,nbArms,bound=1.):
-        self.nbArms = nbArms
-        BatchBanditAgent.__init__(self, self.nbArms, name="BEB"+str(int(bound)))
+        BatchBanditAgent.__init__(self, nbArms, name="BEB"+str(int(bound)))
         self.bound = bound
 
     def reset(self):
-        self.nbDraws = np.zeros(self.nbArms)
-        self.cumRewards = np.zeros(self.nbArms)
-        self.meanRewards = np.zeros(self.nbArms, dtype=float)
-        self.rewardHistory = [[self.bound] for _ in range(self.nbArms)]
-        self.playbuffer= list(range(self.nbArms))
+        self.nbDraws = np.zeros(self.nA)
+        self.cumRewards = np.zeros(self.nA)
+        self.meanRewards = np.zeros(self.nA, dtype=float)
+        self.rewardHistory = [[self.bound] for _ in range(self.nA)]
+        self.playbuffer= list(range(self.nA))
 
     def play(self):
-        return randmax([self._dirichletmean(self.rewardHistory[a]) for a in range(self.nbArms)])
+        return randmax([self._dirichletmean(self.rewardHistory[a]) for a in range(self.nA)])
 
     def _dirichletmean(self, rewards):
         w = np.random.dirichlet(np.ones(len(rewards)))
@@ -49,19 +48,18 @@ class BEB(BatchBanditAgent):
 class BEBnaive(BatchBanditAgent):
     """Bounded-CVaR-Thompson-Sampling Batch for CVaR=Expectation"""
     def __init__(self,nbArms,bound=1.):
-        self.nbArms = nbArms
-        BatchBanditAgent.__init__(self, self.nbArms, name="BEBnaive"+str(int(bound)))
+        BatchBanditAgent.__init__(self, nbArms, name="BEBnaive"+str(int(bound)))
         self.bound = bound
 
     def reset(self):
-        self.nbDraws = np.zeros(self.nbArms)
-        self.cumRewards = np.zeros(self.nbArms)
-        self.meanRewards = np.zeros(self.nbArms, dtype=float)
-        self.rewardHistory = [[self.bound] for _ in range(self.nbArms)]
-        self.playbuffer= list(range(self.nbArms))
+        self.nbDraws = np.zeros(self.nA)
+        self.cumRewards = np.zeros(self.nA)
+        self.meanRewards = np.zeros(self.nA, dtype=float)
+        self.rewardHistory = [[self.bound] for _ in range(self.nA)]
+        self.playbuffer= list(range(self.nA))
 
     def play(self):
-        return randmax([self._dirichletmean(self.rewardHistory[a]) for a in range(self.nbArms)])
+        return randmax([self._dirichletmean(self.rewardHistory[a]) for a in range(self.nA)])
 
     def _dirichletmean(self, rewards):
         w = np.random.dirichlet(np.ones(len(rewards)))
